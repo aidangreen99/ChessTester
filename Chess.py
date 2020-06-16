@@ -7,8 +7,6 @@ rows = 7
 columns = 7
 
 
-
-
 def initializeboard(rows, columns):
     global board
     board = [['_' for x in range(rows)] for y in range(columns)]
