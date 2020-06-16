@@ -6,9 +6,13 @@ import numpy
 rows = 7
 columns = 7
 
-board = [['_' for x in range(rows)] for y in range(columns)]
-# for x in range(rows):
-#     board[x].append([columns])
+
+
+
+def initializeboard(rows, columns):
+    global board
+    board = [['_' for x in range(rows)] for y in range(columns)]
+    return board
 
 def renderboard(rows, columns):
     for i in range(rows):
@@ -28,6 +32,6 @@ def placepieces(rows, columns):
             board[f][j] = 'X'
     
     
-
+initializeboard(rows, columns)
 placepieces(rows, columns)
 renderboard(rows, columns)
