@@ -85,12 +85,12 @@ def movecheck():
     valid = False
     validmove = False
     validpiece = False
-    print('Location: ' + str(startx + 2) + ', ' + str(starty + 2))
+"""     print('Location: ' + str(startx + 2) + ', ' + str(starty + 2))
     print('Piece: ' + board[startx][starty])
     print('Start x: ' + str(startx))
     print('Start y: ' + str(starty))
     print('end x: ' + str(endx))
-    print('end y: ' + str(endy))
+    print('end y: ' + str(endy)) """
     test = board[startx][starty]
     if board[startx][starty] != currentplayer:
        validpiece = False
