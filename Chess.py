@@ -2,7 +2,7 @@ import os
 import array
 import numpy
 import random
-
+import time
 
 rows = 7
 columns = 7
@@ -16,7 +16,7 @@ def initializeboard(rows, columns):
 
 def renderboard(rows, columns):
     if turn > 0:
-        os.system('cls')
+        # os.system('cls')
         print('Your turn, ' + currentplayer + '!')
     for i in range(rows):
         for j in range(columns):
@@ -54,7 +54,7 @@ def turntracker():
         else:
             currentplayer = 'X'
     
-def playermove(starter):
+def playerinput(starter):
     global turn
     global startx
     global starty
@@ -64,14 +64,45 @@ def playermove(starter):
     pieceplace = input('Enter the coordinates of where you want to move that piece: ')
     piecestring.split(',')
     pieceplace.split(',')
-    startx = int(piecestring[0])
-    starty = int(piecestring[2])
-    endx = int(pieceplace[0])
-    endy = int(pieceplace[2])
+    startx = (int(piecestring[0]) - 1 )
+    starty = (int(piecestring[2]) - 1)
+    endx = (int(pieceplace[0]) - 1)
+    endy = (int(pieceplace[2]) - 1)
     turn += 1
     
+def movecheck():
+    global valid
+    valid = False
+    validmove = False
+    validpiece = False
+    print('Location: ' + str(startx + 1) + ', ' + str(starty + 1))
+    print('Piece: ' + board[startx][starty])
+    print('Start x: ' + str(startx))
+    print('Start y: ' + str(starty))
+    print('end x: ' + str(endx))
+    print('end y: ' + str(endy))
+    if board[startx][starty] != currentplayer:
+       validpiece = False
+    if board[startx][starty] == currentplayer:
+        validpiece = True
+    if startx - 1 == endx or startx + 1 == endx:
+        if currentplayer == 'X':
+            if endy - starty == 1:
+                validmove = True
+        if currentplayer == 'O':
+            if endy - starty == 1:
+                validmove = True 
+    print('Valid move: ' + str(validmove))
+    print('Valid piece ' + str(validpiece))
+    if validmove == True and validpiece == True:
+        return True
+    else: 
+        return False 
 
-
+def playermove(valid):
+    if valid == True:
+        board[endx][endy] = currentplayer
+        board[startx][starty] = '_'
     
 
 initializeboard(rows, columns)
@@ -82,4 +113,7 @@ while ended == False:
     renderboard(rows, columns)
     print('Current player: ' + currentplayer)
     print('Turn: '+ str(turn))
-    playermove(startingplayer)
+    playerinput(startingplayer)
+    print('Valid is ' + str(movecheck()))
+    time.sleep(5)
+    playermove(movecheck())
