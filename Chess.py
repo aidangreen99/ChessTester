@@ -46,12 +46,18 @@ def startgame(starter):
 
 def playermove(starter):
     global turn
+    global startx
+    global starty
+    global endx
+    global endy
     piecestring = input('Enter the location of the piece you want to move: ')
     pieceplace = input('Enter the coordinates of where you want to move that piece: ')
     piecestring.split(',')
     pieceplace.split(',')
-    startx = int(pieceplace[0])
-    starty = int(pieceplace[2])
+    startx = int(piecestring[0])
+    starty = int(piecestring[2])
+    endx = int(pieceplace[0])
+    endx = int(pieceplace[2])
     turn += 1
     
 
