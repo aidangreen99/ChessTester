@@ -6,7 +6,8 @@ import random
 
 rows = 7
 columns = 7
-
+ended = False 
+turn = 0
 
 def initializeboard(rows, columns):
     global board
@@ -14,7 +15,9 @@ def initializeboard(rows, columns):
     return board
 
 def renderboard(rows, columns):
-    os.system('cls')
+    if turn > 0:
+        os.system('cls')
+        print('Your turn, ' + currentplayer + '!')
     for i in range(rows):
         for j in range(columns):
                 print(board[i][j], end='   ')
@@ -32,14 +35,44 @@ def placepieces(rows, columns):
 
 def choosestarter():
     global startingplayer
+    global players
     players = ['X','O']
     startingplayer = random.choice(players)
     return startingplayer
 
 def startgame(starter):
+    os.system('cls')
     print('Player ' + starter + ', you go first!')
+
+def playermove(starter):
+    global turn
+    piecestring = input('Enter the location of the piece you want to move: ')
+    pieceplace = input('Enter the coordinates of where you want to move that piece: ')
+    piecestring.split(',')
+    pieceplace.split(',')
+    startx = int(pieceplace[0])
+    starty = int(pieceplace[2])
+    turn += 1
+    
+
+def turntracker():
+    global currentplayer
+    if turn == 0:
+        currentplayer = startingplayer
+    else:
+        if currentplayer == 'X':
+            currentplayer = 'O' 
+        else:
+            currentplayer = 'X'
+    
+    
 
 initializeboard(rows, columns)
 placepieces(rows, columns)
-renderboard(rows, columns)
 startgame(choosestarter())
+while ended == False:
+    turntracker()
+    renderboard(rows, columns)
+    print('Current player: ' + currentplayer)
+    print('Turn: '+ str(turn))
+    playermove(startingplayer)
