@@ -4,8 +4,8 @@ import numpy
 import random
 import time
 
-rows = 7
-columns = 7
+rows = 8
+columns = 8
 ended = False 
 turn = 0
 
@@ -26,12 +26,22 @@ def renderboard(rows, columns):
 def placepieces(rows, columns):
     for i in range(2):
         for j in range(columns):
-            board[i][j] = 'O'
+            board[i+1][j] = 'O'
     
     for i in range(2):
         for j in range(columns):
             f = rows - (i+1)
             board[f][j] = 'X'
+    layout = 0
+    for i in range(rows):
+        for j in range(1):
+            board[i][j] = str(layout)
+            layout += 1
+    layout = 0
+    for i in range(1):
+        for j in range(columns):
+            board[i][j] = str(layout)
+            layout += 1
 
 def choosestarter():
     global startingplayer
@@ -64,10 +74,10 @@ def playerinput(starter):
     pieceplace = input('Enter the coordinates of where you want to move that piece: ')
     piecestring.split(',')
     pieceplace.split(',')
-    startx = (int(piecestring[0]) - 1 )
-    starty = (int(piecestring[2]) - 1)
-    endx = (int(pieceplace[0]) - 1)
-    endy = (int(pieceplace[2]) - 1)
+    starty = (int(piecestring[0]))
+    startx = (int(piecestring[2]))
+    endy = (int(pieceplace[0]))
+    endx = (int(pieceplace[2]))
     turn += 1
     
 def movecheck():
@@ -75,22 +85,23 @@ def movecheck():
     valid = False
     validmove = False
     validpiece = False
-    print('Location: ' + str(startx + 1) + ', ' + str(starty + 1))
+    print('Location: ' + str(startx + 2) + ', ' + str(starty + 2))
     print('Piece: ' + board[startx][starty])
     print('Start x: ' + str(startx))
     print('Start y: ' + str(starty))
     print('end x: ' + str(endx))
     print('end y: ' + str(endy))
+    test = board[startx][starty]
     if board[startx][starty] != currentplayer:
        validpiece = False
     if board[startx][starty] == currentplayer:
         validpiece = True
     if startx - 1 == endx or startx + 1 == endx:
         if currentplayer == 'X':
-            if endy - starty == 1:
+            if endx - startx == -1:
                 validmove = True
         if currentplayer == 'O':
-            if endy - starty == 1:
+            if endx - startx == 1:
                 validmove = True 
     print('Valid move: ' + str(validmove))
     print('Valid piece ' + str(validpiece))
@@ -114,6 +125,4 @@ while ended == False:
     print('Current player: ' + currentplayer)
     print('Turn: '+ str(turn))
     playerinput(startingplayer)
-    print('Valid is ' + str(movecheck()))
-    time.sleep(5)
     playermove(movecheck())
