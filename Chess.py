@@ -44,6 +44,16 @@ def startgame(starter):
     os.system('cls')
     print('Player ' + starter + ', you go first!')
 
+def turntracker():
+    global currentplayer
+    if turn == 0:
+        currentplayer = startingplayer
+    else:
+        if currentplayer == 'X':
+            currentplayer = 'O' 
+        else:
+            currentplayer = 'X'
+    
 def playermove(starter):
     global turn
     global startx
@@ -57,20 +67,11 @@ def playermove(starter):
     startx = int(piecestring[0])
     starty = int(piecestring[2])
     endx = int(pieceplace[0])
-    endx = int(pieceplace[2])
+    endy = int(pieceplace[2])
     turn += 1
     
 
-def turntracker():
-    global currentplayer
-    if turn == 0:
-        currentplayer = startingplayer
-    else:
-        if currentplayer == 'X':
-            currentplayer = 'O' 
-        else:
-            currentplayer = 'X'
-    
+
     
 
 initializeboard(rows, columns)
